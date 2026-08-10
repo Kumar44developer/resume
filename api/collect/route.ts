@@ -28,3 +28,7 @@ const SOURCES = [
         warnings: r.warnings,
       })),
   },
+  {
+    id: "github" as const,
+    enabled: true,
+    fetch: (): Promis

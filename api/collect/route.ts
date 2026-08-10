@@ -38,3 +38,6 @@ const SOURCES = [
         warnings: r.warnings,
       })),
   },
+  {
+    id: "producthunt" as const,
+    enabled: true,

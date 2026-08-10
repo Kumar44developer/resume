@@ -21,3 +21,6 @@ const SOURCES = [
   {
     id: "hn" as const,
     enabled: true,
+    fetch: (): Promise<FetchResult> =>
+      fetchHackerNewsPosts().then((r) => ({
+        posts: r.posts as RawPost[],

@@ -72,3 +72,5 @@ async function upsertBatched(
     const batch = posts.slice(i, i + UPSERT_BATCH_SIZE);
     const { error, count } = await supabase
       .from("raw_posts")
+      .upsert(batch, {
+        onConflict: "source,external_id",

@@ -59,3 +59,5 @@ const SOURCES = [
       })),
   },
 ] as const;
+
+const UPSERT_BATCH_SIZE = 100;

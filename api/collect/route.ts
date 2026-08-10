@@ -32,3 +32,6 @@ const SOURCES = [
     id: "github" as const,
     enabled: true,
     fetch: (): Promis
+      fetchGithubIssues().then((r) => ({
+        posts: r.posts as RawPost[],
+        errors: r.errors,

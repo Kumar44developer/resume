@@ -41,3 +41,6 @@ const SOURCES = [
   {
     id: "producthunt" as const,
     enabled: true,
+    fetch: (): Promise<FetchResult> =>
+      fetchProductHuntComments().then((r) => ({
+        posts: r.posts as RawPost[],

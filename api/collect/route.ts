@@ -48,3 +48,7 @@ const SOURCES = [
         warnings: r.warnings,
       })),
   },
+  {
+    id: "stackoverflow" as const,
+    enabled: true,
+    fetch: (): Promise<FetchResult> =>

@@ -55,3 +55,7 @@ const SOURCES = [
       fetchStackOverflowQuestions().then((r) => ({
         posts: r.posts as RawPost[],
         errors: r.errors,
+       warnings: r.warnings,
+      })),
+  },
+] as const;

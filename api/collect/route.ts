@@ -74,3 +74,5 @@ async function upsertBatched(
       .from("raw_posts")
       .upsert(batch, {
         onConflict: "source,external_id",
+        count: "exact",
+      });

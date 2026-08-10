@@ -70,3 +70,5 @@ async function upsertBatched(
 
   for (let i = 0; i < posts.length; i += UPSERT_BATCH_SIZE) {
     const batch = posts.slice(i, i + UPSERT_BATCH_SIZE);
+    const { error, count } = await supabase
+      .from("raw_posts")

@@ -52,3 +52,6 @@ const SOURCES = [
     id: "stackoverflow" as const,
     enabled: true,
     fetch: (): Promise<FetchResult> =>
+      fetchStackOverflowQuestions().then((r) => ({
+        posts: r.posts as RawPost[],
+        errors: r.errors,

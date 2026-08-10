@@ -61,3 +61,7 @@ const SOURCES = [
 ] as const;
 
 const UPSERT_BATCH_SIZE = 100;
+
+async function upsertBatched(
+  supabase: ReturnType<typeof createAdminClient>,
+  posts: RawPost[]

@@ -18,3 +18,6 @@ const SOURCES = [
         warnings: r.warnings,
       })),
   },
+  {
+    id: "hn" as const,
+    enabled: true,

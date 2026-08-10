@@ -67,3 +67,6 @@ async function upsertBatched(
   posts: RawPost[]
 ): Promise<{ inserted: number; upsertError: string | null }> {
   let inserted = 0;
+
+  for (let i = 0; i < posts.length; i += UPSERT_BATCH_SIZE) {
+    const batch = posts.slice(i, i + UPSERT_BATCH_SIZE);

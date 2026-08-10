@@ -35,3 +35,6 @@ const SOURCES = [
       fetchGithubIssues().then((r) => ({
         posts: r.posts as RawPost[],
         errors: r.errors,
+        warnings: r.warnings,
+      })),
+  },

@@ -6,3 +6,8 @@ import { fetchHackerNewsPosts } from "@/lib/fetchers/hackernews";
 import { fetchGithubIssues } from "@/lib/fetchers/github";
 import { fetchProductHuntComments } from "@/lib/fetchers/producthunt";
 import { fetchStackOverflowQuestions } from "@/lib/fetchers/stackoverflow";
+
+const SOURCES = [
+  {
+    id: "reddit" as const,
+    enabled: true,

@@ -65,3 +65,5 @@ const UPSERT_BATCH_SIZE = 100;
 async function upsertBatched(
   supabase: ReturnType<typeof createAdminClient>,
   posts: RawPost[]
+): Promise<{ inserted: number; upsertError: string | null }> {
+  let inserted = 0;

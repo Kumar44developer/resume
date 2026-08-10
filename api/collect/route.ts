@@ -11,3 +11,6 @@ const SOURCES = [
   {
     id: "reddit" as const,
     enabled: true,
+    fetch: (): Promise<FetchResult> =>
+      fetchRedditPosts().then((r) => ({
+        posts: r.posts as RawPost[],

@@ -31,7 +31,7 @@ const SOURCES = [
   {
     id: "github" as const,
     enabled: true,
-    fetch: (): Promis
+    fetch: (): Promise<FetchResult> =>
       fetchGithubIssues().then((r) => ({
         posts: r.posts as RawPost[],
         errors: r.errors,
@@ -55,7 +55,7 @@ const SOURCES = [
       fetchStackOverflowQuestions().then((r) => ({
         posts: r.posts as RawPost[],
         errors: r.errors,
-       warnings: r.warnings,
+        warnings: r.warnings,
       })),
   },
 ] as const;
@@ -76,3 +76,55 @@ async function upsertBatched(
         onConflict: "source,external_id",
         count: "exact",
       });
+
+    if (error) {
+      return { inserted, upsertError: error.message };
+    }
+    inserted += count ?? batch.length;
+  }
+
+  return { inserted, upsertError: null };
+}
+
+export async function GET(req: NextRequest) {
+  const authHeader = req.headers.get("authorization");
+  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const supabase = createAdminClient();
+  const results: Record<
+    string,
+    { posts: number; inserted: number; errors: string[]; warnings: string[] }
+  > = {};
+
+  for (const source of SOURCES) {
+    if (!source.enabled) continue;
+
+    try {
+      const { posts, errors, warnings } = await source.fetch();
+
+      if (posts.length === 0) {
+        results[source.id] = { posts: 0, inserted: 0, errors, warnings };
+        continue;
+      }
+
+      const { inserted, upsertError } = await upsertBatched(supabase, posts);
+
+      if (upsertError) {
+        errors.push(upsertError);
+      }
+
+      results[source.id] = { posts: posts.length, inserted, errors, warnings };
+    } catch (err) {
+      results[source.id] = {
+        posts: 0,
+        inserted: 0,
+        errors: [err instanceof Error ? err.message : String(err)],
+        warnings: [],
+      };
+    }
+  }
+
+  return NextResponse.json({ ok: true, results });
+}

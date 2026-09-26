@@ -229,21 +229,21 @@ This triggers the collector every 6 hours.
 resume/
 ├── api/
 │   └── collect/
-│       └── route.ts        # Main API route — fetches, scores, and upserts posts
+│       └── route.ts        
 ├── lib/
 │   ├── supabase/
-│   │   └── server.ts       # Supabase admin client factory
+│   │   └── server.ts      
 │   └── fetchers/
-│       ├── types.ts         # Shared types (FetchResult, RawPost)
-│       ├── reddit.ts        # Reddit post fetcher
-│       ├── hackernews.ts    # Hacker News post fetcher
-│       ├── github.ts        # GitHub issues fetcher
-│       ├── producthunt.ts   # ProductHunt comments fetcher
-│       └── stackoverflow.ts # Stack Overflow questions fetcher
-├── .env.local               # Environment variables (not committed)
-├── .gitignore               # Ignored files
-├── package.json             # Dependencies and scripts
-└── README.md                # Project documentation
+│       ├── types.ts        
+│       ├── reddit.ts        
+│       ├── hackernews.ts    
+│       ├── github.ts        
+│       ├── producthunt.ts   
+│       └── stackoverflow.ts 
+├── .env.local               
+├── .gitignore               
+├── package.json            
+└── README.md               
 ```
 
 ## Data Sources
